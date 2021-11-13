@@ -1,6 +1,6 @@
 
 
-export class ListItem extends HTMLElement {
+export class BasicItem extends HTMLElement {
 
     private _object: any;
 
@@ -9,11 +9,29 @@ export class ListItem extends HTMLElement {
         this._object = object;
     }
 
-
     connectedCallback() {
-        this.innerHTML = `<li>${this._object.firstname} ${this._object.lastname}</li>`
+        this.render();
+        this.afterRender();
     }
+
+    protected set object(v: any){
+        this._object = v;
+    }
+
+    public get object() {
+        return this._object;
+    }
+
+    public render() {
+        this.innerHTML = this.template;
+    }
+
+    protected afterRender() {
+
+    }
+
+    protected get template() {
+        return `<li>${this.object.firstname} ${this.object.lastname} <button>edit</button></li>`
+    }
+
 }
-
-
-customElements.define('list-item', ListItem)

@@ -1,4 +1,4 @@
-import { ListItem } from "./item";
+import { ListItemShow } from "./itemShow";
 
 
 export class List extends HTMLElement{
@@ -12,7 +12,7 @@ export class List extends HTMLElement{
     public set objects(v : any[]) {
         this._objects = v;
 
-        this._objects.forEach((object) => this.append(new ListItem(object)));
+        this._objects.forEach((object) => this.append(new ListItemShow(object)));
     }
 
 }
