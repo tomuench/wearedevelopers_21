@@ -1,10 +1,20 @@
+import { ListItem } from "./item";
 
 
 export class List extends HTMLElement{
 
-    public connectedCallback() {
-        this.innerHTML = "Hello-World"
+    private _objects : any[] = [];
+
+    public get objects() : any[] {
+        return this._objects;
     }
+
+    public set objects(v : any[]) {
+        this._objects = v;
+
+        this._objects.forEach((object) => this.append(new ListItem(object)));
+    }
+
 }
 
 
