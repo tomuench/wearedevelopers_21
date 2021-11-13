@@ -31,7 +31,10 @@ export class BasicItem extends HTMLElement {
     }
 
     protected get template() {
-        return `<li>${this.object.firstname} ${this.object.lastname} <button>edit</button></li>`
+        return `<li>
+                    ${this.object.firstname} ${this.object.lastname} 
+                    <button class="button">edit</button>
+                </li>`
     }
 
 }

@@ -1,3 +1,4 @@
+import { Binder } from "./binder";
 import { BasicItem } from "./item";
 import { ListItemShow } from "./itemShow";
 
@@ -9,7 +10,7 @@ export class ListItemEdit extends BasicItem {
 
     protected afterRender() {
         this._originalObject = Object.assign({}, this.object);
-        this.bindObject();
+        Binder.bindObjectToElement(this.object, this);
         this.querySelector("#cancel").addEventListener("click", () => {
             this.object = this._originalObject;
             this.switchToShow();
@@ -20,31 +21,18 @@ export class ListItemEdit extends BasicItem {
         })
     }
 
-    private bindObject(){
-        Object.keys(this.object).forEach((key) => {
-            let value = this.object[key];
-            let element = this.querySelector(`input[name='${key}']`) as HTMLInputElement;
-            if(element) {
-                element.value = value;
-                element.addEventListener("change", (event) => {
-                    this.object[key] = element.value;
-                })
-            }
-        })
-    }
-
-    private switchToShow(){
+    private switchToShow() {
         this.replaceWith(new ListItemShow(this.object));
     }
 
 
     protected get template() {
-        return `<li>
-                    <input name="firstname"/>
-                    <input name="lastname"/>
-                    <button id="cancel">X</button>
-                    <button id="save">Ok</button>
-                </li>`;
+        return `<a class="panel-block">
+                    <input class="input" type="text" name="firstname"/>
+                    <input class="input" type="text" name="lastname"/>
+                    <button class="button is-danger" id="cancel">X</button>
+                    <button class="button is-success" id="save">Ok</button>
+                </a>`;
     }
 }
 

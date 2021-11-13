@@ -11,7 +11,10 @@ export class ListItemShow extends BasicItem {
     }
 
     protected get template() {
-        return `<li>${this.object.firstname} ${this.object.lastname} <button>edit</button></li>`
+        return `<a class="panel-block">
+                    ${this.object.firstname} ${this.object.lastname} 
+                    <button class="button">edit</button>
+                </a>`
     }
 
 }
