@@ -1,28 +1,33 @@
-import { Binder } from "./binder";
 import { BasicItem } from "./item";
-import { ListItemShow } from "./itemShow";
 
 
+/**
+ * Component to be shown on edit
+ */
 export class ListItemEdit extends BasicItem {
-
-    private _originalObject: any;
 
 
     protected afterRender() {
-        this._originalObject = Object.assign({}, this.object);
-        Binder.bindObjectToElement(this.object, this);
-        this.querySelector("#cancel").addEventListener("click", () => {
-            this.object = this._originalObject;
-            this.switchToShow();
-        })
-
-        this.querySelector("#save").addEventListener("click", () => {
-            this.switchToShow();
-        })
+        // TODO Bind Element-Attributes
+        // TODO Bind Listener to Cancel-Button + Backup
+        // TODO Bind Listener to Save-Button
     }
 
-    private switchToShow() {
-        this.replaceWith(new ListItemShow(this.object));
+    /**
+    * Get CancelButton from Innerhtml
+    * @return {HTMLButtonElement}
+    */
+    private get saveButton(): HTMLButtonElement {
+        return this.querySelector("#cancel") as HTMLButtonElement;
+    }
+
+
+    /**
+     * Get CancelButton from Innerhtml
+     * @return {HTMLButtonElement}
+     */
+    private get cancelButton(): HTMLButtonElement {
+        return this.querySelector("#cancel") as HTMLButtonElement;
     }
 
 
@@ -37,4 +42,4 @@ export class ListItemEdit extends BasicItem {
 }
 
 
-customElements.define('list-item-edit', ListItemEdit)
+// TODO register

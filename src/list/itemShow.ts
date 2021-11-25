@@ -2,12 +2,13 @@ import { BasicItem } from "./item";
 import { ListItemEdit } from "./itemEdit";
 
 
+/**
+ * Showing a List-Item
+ */
 export class ListItemShow extends BasicItem {
 
     protected afterRender() {
-        this.querySelector("button").addEventListener("click", () => {
-            this.replaceWith(new ListItemEdit(this.object));      
-        })
+        // TODO Implement Listener to Edit-Button
     }
 
     protected get template() {
@@ -19,5 +20,4 @@ export class ListItemShow extends BasicItem {
 
 }
 
-
-customElements.define('list-item', ListItemShow)
+// TODO register

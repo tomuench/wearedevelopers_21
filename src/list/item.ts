@@ -1,40 +1,25 @@
+import { Person } from "../models/person";
+import { BasicComponent } from "./basicComponent";
 
 
-export class BasicItem extends HTMLElement {
+export class BasicItem extends BasicComponent {
 
-    private _object: any;
+    private _object: Person;
 
-    constructor(object: any) {
+    constructor(object: Person) {
         super();
         this._object = object;
     }
 
-    connectedCallback() {
-        this.render();
-        this.afterRender();
-    }
-
-    protected set object(v: any){
+    /**
+     * @property {Person} object
+     */
+    protected set object(v: Person){
         this._object = v;
     }
 
     public get object() {
         return this._object;
-    }
-
-    public render() {
-        this.innerHTML = this.template;
-    }
-
-    protected afterRender() {
-
-    }
-
-    protected get template() {
-        return `<li>
-                    ${this.object.firstname} ${this.object.lastname} 
-                    <button class="button">edit</button>
-                </li>`
     }
 
 }

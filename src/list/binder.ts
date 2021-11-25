@@ -2,6 +2,11 @@
 
 export class Binder {
 
+    /**
+     * Bind Object to An Element
+     * @param {any} object 
+     * @param {HTMLElement} parent 
+     */
     public static bindObjectToElement(object: any, parent: HTMLElement) {
         Object.keys(object).forEach((key) => {
             let value = object[key];

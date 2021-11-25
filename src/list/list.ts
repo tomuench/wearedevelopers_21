@@ -1,55 +1,59 @@
+import { Person } from "../models/person";
+import { BasicComponent } from "./basicComponent";
 import { ListItemEdit } from "./itemEdit";
 import { ListItemShow } from "./itemShow";
 
 
-export class List extends HTMLElement {
+export class List extends BasicComponent {
 
-    private _objects: any[] = [];
+    private _objects: Person[] = [];
 
-    public get objects(): any[] {
+    constructor(){
+        super();
+        // TODO create shadow dom
+    }
+
+    public get objects(): Person[] {
         return this._objects;
     }
 
-    public connectedCallback() {
-        this.render();
-    }
-
-    public set objects(v: any[]) {
+    public set objects(v: Person[]) {
         this._objects = v;
-        this.appendObjects();
+        // TODO create Component for each List item
     }
 
-    private appendObjects() {
-        let box = this.querySelector("#items");
-        box.innerHTML = "";
-        this._objects.forEach((object) => {
-            box.append(new ListItemShow(object))
-        });
+
+    protected afterRender() {
+        // Todo bind add button
     }
 
-    private addNewObject() {
-        let object = {firstname: "", lastname: ""};
-        this.objects.push(object);
-
-
-        let box = this.querySelector("#items");
-        box.append(new ListItemEdit(object));
+    /**
+     * Creating a new Object
+     * @returns {any}
+     */
+    private buildNewObject() :any {
+        return { firstname: "", lastname: "" };
     }
 
-    public render() {
-        this.innerHTML = this.template;
-        this.appendObjects();
-
-        this.querySelector("button").addEventListener("click",() => this.addNewObject());
-
+    /**
+     * Getting the ItemList Div
+     * @return {HTMLElement}
+     */
+    private get itemList() : HTMLElement {
+        return this.querySelector("#items") as HTMLElement;
     }
 
+    /**
+     * Get Template of Element
+     * @return {string}
+     */
     protected get template() {
         return `<article class="panel is-primary">
                         <p class="panel-heading">
                             Primary
                         </p>
                         <div id="items">
+                        
                         </div>
                         
                         <div class="panel-block">
