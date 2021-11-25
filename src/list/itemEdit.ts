@@ -1,4 +1,7 @@
+import { Person } from "../models/person";
+import { Binder } from "./binder";
 import { BasicItem } from "./item";
+import { ListItemShow } from "./itemShow";
 
 
 /**
@@ -7,10 +10,22 @@ import { BasicItem } from "./item";
 export class ListItemEdit extends BasicItem {
 
 
+    private _backupObj : Person;
+
     protected afterRender() {
-        // TODO Bind Element-Attributes
-        // TODO Bind Listener to Cancel-Button + Backup
-        // TODO Bind Listener to Save-Button
+        this._backupObj = Object.assign({}, this.object);
+        Binder.bindObjectToElement(this.object, this);
+        
+        this.cancelButton.addEventListener("click", () => {
+            Object.keys(this.object).forEach(key => {
+                (this.object as any)[key] = (this._backupObj as any)[key];
+            });
+            this.replaceWith(new ListItemShow(this.object));
+        })
+
+        this.saveButton.addEventListener("click", () => {
+            this.replaceWith(new ListItemShow(this.object));
+        });
     }
 
     /**
@@ -42,4 +57,4 @@ export class ListItemEdit extends BasicItem {
 }
 
 
-// TODO register
+customElements.define('list-item-edit', ListItemEdit);

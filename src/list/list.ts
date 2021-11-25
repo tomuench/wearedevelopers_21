@@ -10,7 +10,7 @@ export class List extends BasicComponent {
 
     constructor(){
         super();
-        // TODO create shadow dom
+        this.attachShadow({mode: "open"});
     }
 
     public get objects(): Person[] {
@@ -19,12 +19,36 @@ export class List extends BasicComponent {
 
     public set objects(v: Person[]) {
         this._objects = v;
-        // TODO create Component for each List item
+        
+        this._objects.forEach((object) => {
+            this.appendToList(new ListItemShow(object));
+        })
+    }
+
+    private appendToList(listItem: ListItemShow){
+        listItem.addEventListener("delete",(event: CustomEvent) => {
+            let obj : Person = event.detail as Person;
+            let index = this.objects.indexOf(obj);
+
+            if(index >= 0) {
+                this.objects.splice(index, 1);
+                console.log(this.objects);
+            }
+            
+        })
+        this.itemList.append(listItem);
+    }
+
+    protected render() {
+        this.shadowRoot.innerHTML = this.template;
     }
 
 
     protected afterRender() {
-        // Todo bind add button
+        this.addButton.addEventListener("click", () => {
+            let obj = this.buildNewObject();
+            this.itemList.append(new ListItemEdit(obj));
+        })
     }
 
     /**
@@ -40,11 +64,11 @@ export class List extends BasicComponent {
      * @return {HTMLElement}
      */
     private get itemList() : HTMLElement {
-        return this.querySelector("#items") as HTMLElement;
+        return this.shadowRoot.querySelector("#items") as HTMLElement;
     }
 
     private get addButton() : HTMLButtonElement {
-        return this.querySelector("#add") as HTMLButtonElement;
+        return this.shadowRoot.querySelector("#add") as HTMLButtonElement;
     }
 
     /**
@@ -52,7 +76,9 @@ export class List extends BasicComponent {
      * @return {string}
      */
     protected get template() {
-        return `<article class="panel is-primary">
+        return `
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <article class="panel is-primary">
                         <p class="panel-heading">
                             Primary
                         </p>
