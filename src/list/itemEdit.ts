@@ -18,7 +18,7 @@ export class ListItemEdit extends BasicItem {
     * @return {HTMLButtonElement}
     */
     private get saveButton(): HTMLButtonElement {
-        return this.querySelector("#cancel") as HTMLButtonElement;
+        return this.querySelector("#save") as HTMLButtonElement;
     }
 
 

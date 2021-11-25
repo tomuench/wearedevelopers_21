@@ -43,6 +43,10 @@ export class List extends BasicComponent {
         return this.querySelector("#items") as HTMLElement;
     }
 
+    private get addButton() : HTMLButtonElement {
+        return this.querySelector("#add") as HTMLButtonElement;
+    }
+
     /**
      * Get Template of Element
      * @return {string}
@@ -57,7 +61,7 @@ export class List extends BasicComponent {
                         </div>
                         
                         <div class="panel-block">
-                            <button class="button">add</button>
+                            <button id="add" class="button">add</button>
                         </div>
                 </article>`
     }

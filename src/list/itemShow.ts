@@ -11,10 +11,14 @@ export class ListItemShow extends BasicItem {
         // TODO Implement Listener to Edit-Button
     }
 
+    private get editButton() : HTMLButtonElement{
+        return this.querySelector("#edit") as HTMLButtonElement;
+    }
+
     protected get template() {
         return `<a class="panel-block">
                     ${this.object.firstname} ${this.object.lastname} 
-                    <button class="button">edit</button>
+                    <button id="edit" class="button">edit</button>
                 </a>`
     }
 
